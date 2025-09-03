@@ -68,3 +68,23 @@ resource "aws_security_group_rule" "inbound_traffic" {
   from_port = tonumber(each.key)
   to_port   = tonumber(each.key)
 }
+
+# (Add this new resource to your existing security_group.tf file)
+
+resource "aws_security_group" "monitoring_sg" {
+  name        = "monitoring-sg"
+  description = "Allow traffic from monitoring systems"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description = "Prometheus Node Exporter from Monitoring Server"
+    from_port   = 9100
+    to_port     = 9100
+    protocol    = "tcp"
+    cidr_blocks = ["1.222.116.186/32"] # Replace with your monitoring server's IP
+  }
+
+  tags = {
+    Name = "monitoring-sg"
+  }
+}

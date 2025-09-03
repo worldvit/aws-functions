@@ -87,3 +87,30 @@ variable "allowed_ports_string" {
   type        = string
   default     = "80,443,22" # HTTP, HTTPS, SSH
 }
+
+variable "environment" {
+  description = "The deployment environment (e.g., dev, staging, prod)"
+  type        = string
+  default     = "dev"
+}
+
+variable "db_instance_type_map" {
+  description = "A map of instance types based on the environment"
+  type        = map(string)
+  default = {
+    "dev"  = "t3.micro"
+    "prod" = "t3.medium"
+  }
+}
+
+# (Add this new variable to your existing variables.tf file)
+
+variable "common_tags" {
+  description = "A map of common tags to apply to all resources"
+  type        = map(string)
+  default = {
+    "Project"     = "aws-functions"
+    "ManagedBy"   = "Terraform"
+    "Environment" = "dev"
+  }
+}
