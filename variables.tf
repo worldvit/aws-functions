@@ -81,3 +81,9 @@ variable "ec2_ami_id" {
   type        = string
   default     = "ami-03aa99ddf5498ceb9"
 }
+
+variable "allowed_ports_string" {
+  description = "A comma-separated list of ports to allow for ingress"
+  type        = string
+  default     = "80,443,22" # HTTP, HTTPS, SSH
+}
